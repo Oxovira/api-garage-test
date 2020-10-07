@@ -1,11 +1,15 @@
 import { Module } from '@nestjs/common';
+
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
-import { UserModule } from './user/user.module';
+
 import { CarModule } from './car/car.module';
+
+import { CustomerModule } from './customer/customer.module';
+
 
 @Module({
   imports: [
@@ -19,8 +23,8 @@ import { CarModule } from './car/car.module';
       entities: [join(__dirname, '**', '*.entity.{ts,js}')],
       synchronize: true,
     }),
-    UserModule,
     CarModule,
+    CustomerModule,
   ],
   controllers: [AppController],
   providers: [AppService],

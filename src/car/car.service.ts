@@ -39,7 +39,7 @@ export class CarService {
     public async editCar(
         carId: number,
         createCarDto: CreateCarDTO,
-      ): Promise<Car> {
+        ): Promise<Car> {
         const editedCar = await this.carRepository.findOne(carId);
         if (!editedCar) 
         {
