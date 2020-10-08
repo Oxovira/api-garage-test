@@ -13,7 +13,7 @@ import {
   } from '@nestjs/common';
 import { CustomerService } from './customer.service';
 import { CreateCustomerDTO } from './dto/create-customer.dto';
-
+import { EditCustomerDTO } from './dto/edit-customer.dto';
 @Controller('customer')
 export class CustomerController {
     constructor(private customerService: CustomerService) { }
@@ -44,10 +44,16 @@ export class CustomerController {
     }
 
     // Update a customer's details
-    @Put('/update')
-    async updateCustomer(@Res() res, @Query('customerID') customerID, @Body() createCustomerDTO: CreateCustomerDTO) {
-        const customer = await this.customerService.editCustomer(customerID, createCustomerDTO);
+    @Put('/edit')
+    async editCustomer(@Res() res, @Body() createCustomerDTO: EditCustomerDTO) {
+
+        const customer = await this.customerService.editCustomer(createCustomerDTO);
+        
+        //Debug
+        console.log("Call Edit Customer " , createCustomerDTO);
+
         if (!customer) throw new NotFoundException('Customer does not exist!');
+        
         return res.status(HttpStatus.OK).json({
             message: 'Customer has been successfully updated',
             customer
@@ -57,7 +63,11 @@ export class CustomerController {
     // Delete a customer
     @Delete('/delete')
     async deleteCustomer(@Res() res, @Query('customerID') customerID) {
+        
+        console.log("Call delete customer " , customerID);
+
         const customer = await this.customerService.deleteCustomer(customerID);
+
         if (!customer) throw new NotFoundException('Customer does not exist');
         return res.status(HttpStatus.OK).json({
             message: 'Customer has been deleted',

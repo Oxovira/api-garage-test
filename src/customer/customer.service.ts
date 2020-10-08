@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Customer } from './customer.entity';
 import { CreateCustomerDTO } from './dto/create-customer.dto';
+import { EditCustomerDTO } from './dto/edit-customer.dto';
 import { CustomerRepository } from './customer.repository';
 
 @Injectable()
@@ -34,15 +35,14 @@ export class CustomerService {
 
     // Edit customer details
     async editCustomer(
-        customerID: number, 
-        createCustomerDTO: CreateCustomerDTO
+        editCustomerDTO: EditCustomerDTO
         ): Promise<Customer> {
-        const editedCustomer = await this.customerRepository.findOne(customerID);
+        const editedCustomer = await this.customerRepository.findOne(editCustomerDTO.id);
         if (!editedCustomer) 
         {
           throw new NotFoundException('Customer not found');
         }
-        return this.customerRepository.editCustomer(createCustomerDTO, editedCustomer);
+        return this.customerRepository.editCustomer(editCustomerDTO, editedCustomer);
     }
     
     // Delete a customer

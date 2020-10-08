@@ -1,7 +1,7 @@
 import { Repository, EntityRepository } from 'typeorm';
 import { Customer } from './customer.entity';
 import { CreateCustomerDTO } from './dto/create-customer.dto';
-
+import { EditCustomerDTO } from './dto/edit-customer.dto';
 @EntityRepository(Customer)
 export class CustomerRepository extends Repository<Customer> {
 
@@ -21,10 +21,10 @@ export class CustomerRepository extends Repository<Customer> {
     
     //Edit customer
       public async editCustomer(
-        createCustomerDto: CreateCustomerDTO,
+        editCustomerDTO: EditCustomerDTO,
         editedCustomer: Customer,
       ): Promise<Customer> {
-        const { firstName, lastName } = createCustomerDto;
+        const { firstName, lastName } = editCustomerDTO;
     
         editedCustomer.firstName = firstName;
         editedCustomer.lastName = lastName;
