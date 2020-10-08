@@ -6,6 +6,10 @@ import {
     Patch,
     Param,
     Delete,
+    Res,
+    Query,
+    NotFoundException,
+    HttpStatus,
   } from '@nestjs/common';
 
   import { CarService } from './car.service';
@@ -16,13 +20,15 @@ import {
   export class CarController {
     constructor(private carService: CarService) {}
   
-    @Post('create')
-    public async createCar(
-      @Body() createCarDto: CreateCarDTO,
-    ): Promise<Car> {
+    @Post('/create')
+    async createCar(@Res() res, @Body() createCarDto: CreateCarDTO){
+      console.log("Create Cars for Customer ", createCarDto);
       
       const car = await this.carService.createCar(createCarDto);
-      return car;
+      return res.status(HttpStatus.OK).json({
+        message: "Car has been created successfully",
+        car
+      })
     }
   
     @Get('all')
@@ -49,9 +55,18 @@ import {
       return car;
     }
   
-    @Delete('/delete/:carId')
-    public async deleteCarByID(@Param('carId') carId: number) {
-      const deletedCar = await this.carService.deleteCarByID(carId);
-      return deletedCar;
+    @Delete('/delete')
+    async deleteCarByID(@Res() res,  @Query('carID') carID) {
+      
+      console.log("Call delete customer " , carID);
+      const car = await this.carService.deleteCarByID(carID);
+
+      if(!car) throw new NotFoundException('Car does not exist');
+        return res.status(HttpStatus.OK).json({
+            message: 'Car has been deleted',
+            car
+      })
     }
+
+ 
   }

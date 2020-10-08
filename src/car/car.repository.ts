@@ -1,6 +1,7 @@
 import { Repository, EntityRepository } from 'typeorm';
 import { Car } from './car.entity';
 import { CreateCarDTO } from './dto/create-car.dto';
+import { Customer } from '../customer/customer.entity';
 
 @EntityRepository(Car)
 export class CarRepository extends Repository<Car> {
@@ -9,12 +10,20 @@ export class CarRepository extends Repository<Car> {
     public async createCar(
         createCartDto: CreateCarDTO,
       ): Promise<Car> {
-        const { nameBrand, numModel } = createCartDto;
-    
+        const { nameBrand, numModel, customerIDs } = createCartDto;
         const car = new Car();
+        
         car.nameBrand = nameBrand;
         car.numModel = numModel;
-    
+        car.customers=[];
+        
+        //Création de la liason du la voiture avec un utilisateur
+        console.log(customerIDs);
+        for(let i = 0; i < customerIDs.length ; i++)
+        {
+          const customer = await Customer.findOne(customerIDs[i]);
+          car.customers.push(customer);
+        }
         await car.save();
         return car;
       }

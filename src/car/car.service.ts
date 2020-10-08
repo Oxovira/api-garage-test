@@ -9,10 +9,8 @@ import { CarRepository } from './car.repository';
 @Injectable()
 export class CarService {
 
-    constructor(
-        @InjectRepository(CarRepository)
-        private carRepository: CarRepository,
-      ) {}
+    constructor(@InjectRepository(CarRepository)
+        private readonly carRepository: CarRepository,) {}
 
     //Create Car
     public async createCar(
@@ -49,7 +47,7 @@ export class CarService {
     }
 
     //Deleted by ID
-    public async deleteCarByID(carId: number): Promise<void> {
+    async deleteCarByID(carId: number): Promise<any> {
         await this.carRepository.delete(carId);
     }
 

@@ -34,6 +34,7 @@ import HomeComponent from '@/views/Home';
 import EditComponent from '@/components/post/Edit';
 import CreateComponent from '@/components/post/Create';
 import CustomerComponent from '@/components/post/Customer';
+import CarsComponent from '@/components/post/Cars';
 
 Vue.use(Router)
 
@@ -44,6 +45,7 @@ export default new Router({
    { path: '/home', name: 'home', component: HomeComponent },
    { path: '/create', name: 'Create', component: CreateComponent },
    { path: '/edit/:id', name: 'Edit', component: EditComponent },
-   { path: '/customer/:id', name: 'Customer', component: CustomerComponent }
+   { path: '/customer/:id', name: 'Customer', component: CustomerComponent },
+   { path: '/cars/:id', name: 'Cars', component: CarsComponent }
  ]
 });

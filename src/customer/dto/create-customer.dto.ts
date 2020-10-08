@@ -7,4 +7,6 @@ export class CreateCustomerDTO {
 
   @IsString()
   lastName: string;
+
+  readonly carIDs: number[];
 }

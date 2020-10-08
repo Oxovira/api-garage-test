@@ -9,7 +9,7 @@ import {
     Query, 
     NotFoundException, 
     Delete, 
-    Param 
+    Param, ParseIntPipe 
   } from '@nestjs/common';
 import { CustomerService } from './customer.service';
 import { CreateCustomerDTO } from './dto/create-customer.dto';
@@ -73,5 +73,10 @@ export class CustomerController {
             message: 'Customer has been deleted',
             customer
         })
+    }
+
+    @Get('cars')
+    public async getCars(@Body('customerID', ParseIntPipe) customerID: number){
+        return this.customerService.getCarsOfCustomer(customerID);
     }
 }

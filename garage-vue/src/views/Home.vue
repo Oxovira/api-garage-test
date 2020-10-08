@@ -19,7 +19,8 @@
                  <div class="d-flex justify-content-between align-items-center">
                    <div class="btn-group" style="margin-bottom: 20px;">
                      <router-link :to="{name: 'Customer', params: {id: customer.id}}" class="btn btn-sm btn-outline-secondary">View Customer </router-link> |
-                      <router-link :to="{name: 'Edit', params: {id: customer.id}}" class="btn btn-sm btn-outline-secondary">Edit Customer </router-link>
+                      <router-link :to="{name: 'Edit', params: {id: customer.id}}" class="btn btn-sm btn-outline-secondary">Edit Customer </router-link> |
+                      <router-link :to="{name: 'Cars', params: {id: customer.id}}" class="btn btn-sm btn-outline-secondary">View Cars</router-link>
                       <button class="btn btn-sm btn-outline-secondary" v-on:click="deleteCustomer(customer.id)">Delete Post  </button>
                    </div>
                  </div>

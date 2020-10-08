@@ -4,6 +4,8 @@ import { Customer } from './customer.entity';
 import { CreateCustomerDTO } from './dto/create-customer.dto';
 import { EditCustomerDTO } from './dto/edit-customer.dto';
 import { CustomerRepository } from './customer.repository';
+import { promises } from 'dns';
+import { Car } from '../car/car.entity';
 
 @Injectable()
 export class CustomerService {
@@ -48,5 +50,12 @@ export class CustomerService {
     // Delete a customer
     async deleteCustomer(customerID): Promise<any> {
         await this.customerRepository.delete(customerID);
+    }
+
+    async getCarsOfCustomer(customerID: number): Promise<Car[]>
+    {
+        console.log(typeof(customerID));
+        const customer: Customer = await Customer.findOne({where: {id: customerID}, relations: ['cars']});
+        return customer.cars;
     }
 }

@@ -1,4 +1,4 @@
-import { IsString } from 'class-validator';
+import { IsNumber, IsString } from 'class-validator';
 
 export class CreateCarDTO {
     
@@ -7,4 +7,7 @@ export class CreateCarDTO {
 
   @IsString()
   numModel: string;
+
+  @IsNumber()
+  customerIDs: number[];
 }

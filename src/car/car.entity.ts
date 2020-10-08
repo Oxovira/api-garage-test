@@ -1,5 +1,5 @@
-import { PrimaryGeneratedColumn, BaseEntity, Column, Entity } from 'typeorm';
-
+import { PrimaryGeneratedColumn, BaseEntity, Column, Entity, ManyToMany } from 'typeorm';
+import { Customer } from '../customer/customer.entity';
 @Entity()
 export class Car extends BaseEntity {
 
@@ -11,5 +11,8 @@ export class Car extends BaseEntity {
 
   @Column()
   numModel: string;
+
+  @ManyToMany( type => Customer)
+  customers: Customer[];
 
 }
